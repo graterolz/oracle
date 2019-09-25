@@ -1,0 +1,88 @@
+USE ELZYRA EXEC ELZYRA.dbo.pJOB_ELZYRA_Email_Meta_Vta_VendedoresMix @pGrupo ='Stargas';
+--
+SELECT * FROM ELZYRA.dbo.func_MixVentasSG ('001','01/03/2017','31/03/2017')
+SELECT DISTINCT TOP 1 desde,hasta FROM ELZYRA.dbo.Ventas_Metas ORDER BY 1 DESC
+--
+SELECT * FROM ELZYRA.dbo.Ventas_Metas
+--
+SELECT * FROM ELZYRA.dbo.Comision_MixVentas
+SELECT * FROM [ELZYRA].[dbo].[Tipo_Usuario]
+SELECT * FROM [ELZYRA].[dbo].[Elzyra_Modules]
+--
+SELECT * FROM ELZYRA.dbo.AspNetUsers
+SELECT * FROM ELZYRA.dbo.AspNetRoles
+USE ELZYRA EXEC sp_help 'AspNetRoles'
+--
+ALTER TABLE ELZYRA.dbo.AspNetUsers ADD id_tipo NCHAR(128)
+ALTER TABLE ELZYRA.dbo.AspNetUsers ADD id_modulo NCHAR(128)
+ALTER TABLE ELZYRA.dbo.AspNetUsers ADD id_rol NVARCHAR(128)
+ALTER TABLE ELZYRA.dbo.AspNetUsers ADD CONSTRAINT DF_id DEFAULT NEWID() FOR id;
+--
+ALTER TABLE ELZYRA.dbo.AspNetUsers DROP COLUMN id_tipo
+ALTER TABLE ELZYRA.dbo.AspNetUsers DROP COLUMN id_modulo
+ALTER TABLE ELZYRA.dbo.AspNetUsers DROP COLUMN id_rol
+--
+ALTER TABLE ELZYRA.dbo.AspNetUsers WITH CHECK ADD  CONSTRAINT [FK_Tipo_Usuario] FOREIGN KEY(id_tipo)
+REFERENCES ELZYRA.dbo.Tipo_Usuario (id_tipo)
+
+ALTER TABLE ELZYRA.dbo.AspNetUsers WITH CHECK ADD  CONSTRAINT [FK_Elzyra_Modules] FOREIGN KEY(id_modulo)
+REFERENCES ELZYRA.dbo.Elzyra_Modules (id_modulo)
+
+ALTER TABLE ELZYRA.dbo.AspNetUsers WITH CHECK ADD  CONSTRAINT [FK_AspNetRolesUsers] FOREIGN KEY(id_rol)
+REFERENCES ELZYRA.dbo.AspNetRoles (id)
+--
+ALTER TABLE ELZYRA.dbo.AspNetUsers CHECK CONSTRAINT [FK_Tipo_Usuario]
+ALTER TABLE ELZYRA.dbo.AspNetUsers CHECK CONSTRAINT [FK_Elzyra_Modules]
+ALTER TABLE ELZYRA.dbo.AspNetUsers CHECK CONSTRAINT [FK_AspNetRolesUsers]
+--
+ALTER TABLE ELZYRA.dbo.AspNetUsers DROP CONSTRAINT [FK_Tipo_Usuario]
+ALTER TABLE ELZYRA.dbo.AspNetUsers DROP CONSTRAINT [FK_Elzyra_Modules]
+ALTER TABLE ELZYRA.dbo.AspNetUsers DROP CONSTRAINT [FK_AspNetRolesUsers]
+--
+SELECT * FROM ELZYRA.dbo.Reclamo_Doc_Asoc
+SELECT * FROM ELZYRA.dbo.Tipo_Documento
+SELECT * FROM ELZYRA.dbo.Tipo_Usuario
+--
+SELECT * FROM ELZYRA.dbo.Reclamo_Doc_Asoc
+ALTER TABLE ELZYRA.dbo.Reclamo_Doc_Asoc ADD co_us_in NVARCHAR(128)
+ALTER TABLE ELZYRA.dbo.Reclamo_Doc_Asoc ALTER COLUMN co_us_in NVARCHAR(128) NOT NULL
+--
+SELECT * FROM ELZYRA.dbo.Reclamo_Razon
+ALTER TABLE ELZYRA.dbo.Reclamo_Razon ADD co_us_in NVARCHAR(128)
+ALTER TABLE ELZYRA.dbo.Reclamo_Razon ADD fec_emis DATETIME DEFAULT GETDATE() NOT NULL
+--
+DELETE TOP(1) FROM ELZYRA.dbo.AspNetUsers WHERE id = '67B8DBB5-6A47-4763-A18F-7D19C40604E9'
+--
+DROP TABLE [ELZYRA].[dbo].[Elzyra_Modules]
+GO
+CREATE TABLE [ELZYRA].[dbo].[Elzyra_Modules](
+	[id_modulo] NCHAR(128) NOT NULL DEFAULT NEWID(),
+	[descripcion] [nvarchar](max) NOT NULL
+ CONSTRAINT [PK_Elzyra_Modules] PRIMARY KEY CLUSTERED 
+(
+	[id_modulo] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+--
+DROP TABLE [ELZYRA].[dbo].[Elzyra_ModulesUsers]
+GO
+CREATE TABLE [ELZYRA].[dbo].[Elzyra_ModulesUsers](
+	[id_moduser] NCHAR(128) NOT NULL DEFAULT NEWID(),
+	[id_modulo] NCHAR(128) NOT NULL,
+	[id_aspuser] NCHAR(128) NOT NULL,
+ CONSTRAINT [PK_Elzyra_ModulesUsers] PRIMARY KEY CLUSTERED 
+(
+	[id_moduser] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+--
+DROP TABLE [ELZYRA].[dbo].[Tipo_Usuario]
+GO
+CREATE TABLE [ELZYRA].[dbo].[Tipo_Usuario](
+	[id_tipo] NCHAR(128) NOT NULL DEFAULT NEWID(),
+	[descripcion] [nvarchar](max) NOT NULL
+ CONSTRAINT [PK_Tipo_Usuario] PRIMARY KEY CLUSTERED 
+(
+	[id_tipo] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]

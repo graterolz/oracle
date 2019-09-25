@@ -1,0 +1,1102 @@
+DROP TABLE SIPF08
+SELECT * INTO SIPF08 FROM OPENQUERY(DB2400,'
+	SELECT a.* FROM lscadea.sipf08 a, lscadea.migsinies b
+	WHERE a.RAMO = b.RAMO
+	AND a.POLIZA = b.POLIZA
+	AND a.SERIE  = b.SERIE
+	AND a.RECLAC = b.RECLAC
+	AND a.RECLAM = b.RECLAM
+	AND b.migra = ''S''
+')
+--
+DROP TABLE SIPF10
+SELECT * INTO SIPF10 FROM OPENQUERY(DB2400,'
+	SELECT a.* FROM lscadea.sipf10 a,lscadea.migsinies b
+	WHERE a.RAMO = b.RAMO
+	AND a.POLIZA = b.POLIZA
+	AND a.SERIE = b.SERIE
+	AND a.RECLAC = b.RECLAC
+	AND a.RECLAM = b.RECLAM
+	AND b.migra = ''S''
+')
+--
+DROP TABLE SIPF30
+SELECT * INTO SIPF30 FROM OPENQUERY(DB2400,'
+	SELECT a.* FROM lscadea.sipf30 a, lscadea.migsinies b
+	WHERE a.RAMO = b.RAMO
+	AND a.POLIZA = b.POLIZA
+	AND a.SERIE = b.SERIE
+	AND a.RECLAC = b.RECLAC
+	AND a.RECLAM = b.RECLAM
+	AND b.migra = ''S''
+')
+--
+DROP TABLE SIPF31
+SELECT * INTO SIPF31 FROM OPENQUERY(DB2400,'
+	SELECT a.* FROM lscadea.sipf31 a, lscadea.migsinies b
+	WHERE a.RAMO = b.RAMO
+	AND a.POLIZA = b.POLIZA
+	AND a.SERIE = b.SERIE
+	AND a.RECLAC = b.RECLAC
+	AND a.RECLAM = b.RECLAM
+	AND b.migra = ''S''
+')
+--
+DROP TABLE SIPF34
+SELECT * INTO SIPF34 FROM OPENQUERY(DB2400,'
+	SELECT a.* FROM lscadea.sipf34 a,lscadea.migsinies b
+	WHERE a.RAMO = b.RAMO
+	AND a.POLIZA = b.POLIZA
+	AND a.SERIE = b.SERIE
+	AND a.RECLAC = b.RECLAC
+	AND a.RECLAM = b.RECLAM
+	AND b.migra = ''S''
+')
+--
+DROP TABLE SIPF37
+SELECT * INTO SIPF37 FROM OPENQUERY(DB2400,'
+	SELECT a.* FROM lscadea.sipf37 a, lscadea.migsinies b
+	WHERE a.RAMO = b.RAMO
+	AND a.POLIZA = b.POLIZA
+	AND a.SERIE = b.SERIE
+	AND a.RECLAC = b.RECLAC
+	AND a.RECLAM = b.RECLAM
+	AND b.migra = ''S''
+')
+--
+DROP TABLE SIPF40
+SELECT * INTO SIPF40 FROM OPENQUERY(DB2400,'
+	SELECT a.* FROM lscadea.sipf40 a, lscadea.migsinies b
+	WHERE a.RAMO = b.RAMO
+	AND a.POLIZA = b.POLIZA
+	AND a.SERIE = b.SERIE
+	AND a.RECLAC = b.RECLAC
+	AND a.RECLAM = b.RECLAM
+	AND b.migra = ''S''
+')
+--
+DROP TABLE HJPF01_REN
+SELECT A.* INTO HJPF01_REN FROM OPENQUERY(DB2400PROD, 'SELECT * FROM LSCADEA.HJPF01') A,(
+	SELECT DISTINCT RAMO,POLIZA FROM ORAACSELMIGRA..MIGRA.SINIESTROS_RECIBO_MULTIRAMO
+) B
+WHERE A.RAMO = B.RAMO
+AND A.POLIZA = B.POLIZA
+--
+DROP TABLE HJPF02_REN
+SELECT A.* INTO HJPF02_REN FROM OPENQUERY(DB2400PROD, 'SELECT * FROM LSCADEA.HJPF02') A,(
+	SELECT DISTINCT RAMO,POLIZA,NUMREC FROM ORAACSELMIGRA..MIGRA.SINIESTROS_RECIBO_MULTIRAMO
+) B
+WHERE A.RAMO = B.RAMO
+AND A.POLIZA = B.POLIZA
+AND A.NUMREC = B.NUMREC
+--
+DROP TABLE HJPF03_REN
+SELECT A.* INTO HJPF03_REN FROM OPENQUERY(DB2400PROD, 'SELECT * FROM LSCADEA.HJPF03') A,(
+	SELECT DISTINCT RAMO,POLIZA,NUMREC FROM ORAACSELMIGRA..MIGRA.SINIESTROS_RECIBO_MULTIRAMO
+) B
+WHERE A.RAMO = B.RAMO
+AND A.POLIZA = B.POLIZA
+AND A.NUMREC = B.NUMREC
+--
+DROP TABLE HJPF05_REN
+SELECT A.* INTO HJPF05_REN FROM OPENQUERY(DB2400PROD, 'SELECT * FROM LSCADEA.HJPF05') A, (
+	SELECT DISTINCT RAMO,POLIZA,NUMREC FROM ORAACSELMIGRA..MIGRA.SINIESTROS_RECIBO_MULTIRAMO
+) B
+WHERE A.RAMO = B.RAMO
+AND A.POLIZA = B.POLIZA
+AND A.NUMREC = B.NUMREC
+--
+DROP TABLE REPF14_REN
+SELECT A.* INTO REPF14_REN FROM OPENQUERY(DB2400PROD, 'SELECT * FROM LSCADEA.REPF14') A, (
+	SELECT DISTINCT RAMO,POLIZA,NUMREC FROM ORAACSELMIGRA..MIGRA.SINIESTROS_RECIBO_MULTIRAMO
+) B
+WHERE A.RAMO = B.RAMO
+AND A.POLIZA = B.POLIZA
+AND A.NUMREC = B.NUMREC
+--
+DROP TABLE REPF15_REN
+SELECT A.* INTO REPF15_REN FROM OPENQUERY(DB2400PROD, 'SELECT * FROM LSCADEA.REPF15') A, (
+	SELECT DISTINCT RAMO,POLIZA,NUMREC FROM ORAACSELMIGRA..MIGRA.SINIESTROS_RECIBO_MULTIRAMO
+) B
+WHERE A.RAMO = B.RAMO
+AND A.POLIZA = B.POLIZA
+AND A.NUMREC = B.NUMREC
+--
+SELECT * INTO HJPF24_REN FROM OPENQUERY(DB2400PROD, 'SELECT * FROM LSCADEA.HJPF24');
+SELECT * INTO HJPF25_REN FROM OPENQUERY(DB2400PROD, 'SELECT * FROM LSCADEA.HJPF25');
+SELECT * INTO HJPF26_REN FROM OPENQUERY(DB2400PROD, 'SELECT * FROM LSCADEA.HJPF26');
+SELECT * INTO HJPF27_REN FROM OPENQUERY(DB2400PROD, 'SELECT * FROM LSCADEA.HJPF27');
+SELECT * INTO HJPF29_REN FROM OPENQUERY(DB2400PROD, 'SELECT * FROM LSCADEA.HJPF29');
+SELECT * INTO FNPF05_REN FROM OPENQUERY(DB2400PROD, 'SELECT * FROM LSCADEA.FNPF05');
+SELECT * INTO CLPF08N_REN FROM OPENQUERY(DB2400PROD, 'SELECT * FROM LSCADEA.CLPF08N');
+--
+SELECT A.* INTO HJPF71_REN FROM OPENQUERY(DB2400PROD, 'SELECT * FROM LSCADEA.HJPF71') A, (
+	SELECT DISTINCT RAMO,POLIZA,NUMREC FROM ORAACSELMIGRA..MIGRA.SINIESTROS_RECIBO_MULTIRAMO
+) B
+WHERE A.RAMO = B.RAMO
+AND A.POLIZA = B.POLIZA
+AND A.NUMREC = B.NUMREC
+--
+SELECT A.* INTO HJPF75_REN FROM OPENQUERY(DB2400PROD, 'SELECT * FROM LSCADEA.HJPF75') A, (
+	SELECT DISTINCT RAMO,POLIZA,NUMREC FROM ORAACSELMIGRA..MIGRA.SINIESTROS_RECIBO_MULTIRAMO
+) B
+WHERE A.RAMO = B.RAMO
+AND A.POLIZA = B.POLIZA
+AND A.NUMREC = B.NUMREC
+--
+SELECT * INTO AMPF02 FROM OPENQUERY(DB2400, 'SELECT * FROM serv24.ampf02')
+--
+SELECT * INTO CLPF01 FROM OPENQUERY(DB2400,'
+	SELECT aa.* FROM lscadea.clpf01 aa, (
+		SELECT ramo, poliza FROM lscadef.migcarcer
+		WHERE migrac = ''S''
+		GROUP BY ramo,poliza
+	) bb
+	WHERE aa.ramo = bb.ramo
+	AND aa.poliza = bb.poliza'
+)
+--
+SELECT * INTO CLPF05 FROM OPENQUERY(DB2400,'
+	SELECT aa.* FROM lscadea.clpf05 aa,lscadef.migcarcer  bb
+	WHERE aa.ramo = bb.ramo
+	AND aa.poliza = bb.poliza
+	AND aa.numcer = bb.numcer
+	AND aa.cofaam = bb.cofaam
+	AND bb.migrac = ''S''
+')
+--
+SELECT * INTO CLPF06 FROM OPENQUERY(DB2400,'
+	SELECT aa.* FROM lscadea.clpf06 aa, lscadef.migcarcer  bb
+	WHERE aa.ramo = bb.ramo
+	AND aa.poliza = bb.poliza
+	AND aa.numcer = bb.numcer
+	AND aa.cofaam = bb.cofaam
+	AND bb.migrac = ''S''
+')
+--
+SELECT * INTO CLPF07 FROM OPENQUERY(DB2400,'
+	SELECT aa.* FROM lscadea.clpf07 aa, lscadef.migcarcer  bb
+	WHERE aa.ramo = bb.ramo
+	AND aa.poliza = bb.poliza
+	AND aa.cerveh = bb.numcer
+	AND bb.migrac = ''S''
+')
+--
+SELECT * INTO CLPF08 FROM OPENQUERY(DB2400,'
+	SELECT aa.* FROM lscadea.clpf08 aa, lscadef.MIGCARCER bb
+	WHERE aa.ramo = bb.ramo
+	AND aa.poliza = bb.poliza
+	AND aa.cerveh = bb.numcer
+	AND aa.ramo = 31
+')
+--
+SELECT * INTO CLPF08N FROM OPENQUERY(DB2400,'
+	SELECT aa.* FROM lscadea.clpf08n aa,lscadef.MIGCARTEI bb
+	WHERE aa.ramo = bb.ramo
+	AND aa.poliza = bb.poliza
+	AND aa.numrec = bb.numrec
+	AND aa.ramo = 31
+')
+--
+SELECT * INTO CLPF10 FROM OPENQUERY(DB2400, '
+	SELECT aa.* FROM lscadea.clpf10 aa, lscadef.migcarcer  bb
+	WHERE aa.ramo = bb.ramo
+	AND aa.poliza = bb.poliza
+	AND aa.numcer = bb.numcer
+	AND aa.cofaam = bb.cofaam
+	AND bb.migrac = ''S''
+')
+--
+SELECT * INTO CLPF18 FROM OPENQUERY(DB2400,'SELECT * FROM lscadea.clpf18')
+--
+SELECT * INTO CLPF25 FROM OPENQUERY(DB2400,'
+	SELECT aa.* FROM lscadea.clpf25 aa, lscadef.migcarcer bb
+	WHERE aa.ramo = bb.ramo
+	AND aa.poliza = bb.poliza
+	AND aa.numcer = bb.numcer
+	AND aa.cofaam = bb.cofaam
+	AND bb.migrac = ''S''
+')
+--
+SELECT * INTO CLPF27 FROM OPENQUERY(DB2400,'
+	SELECT aa.* FROM lscadea.clpf27 aa, lscadef.migcarcer bb
+	WHERE aa.ramo = bb.ramo
+	AND aa.poliza = bb.poliza
+	AND aa.numcer = bb.numcer
+	AND aa.cofaam = bb.cofaam
+	AND bb.migrac = ''S''                               
+')
+--
+SELECT * INTO CLPF37 FROM OPENQUERY(DB2400,'SELECT * FROM lscadea.clpf37')
+--
+SELECT * INTO CLPF40 FROM OPENQUERY(DB2400,'
+	SELECT aa.* FROM lscadea.clpf40 aa, lscadef.migcarcer bb
+	WHERE aa.ramo = bb.ramo
+	AND aa.poliza = bb.poliza
+	AND aa.numcer = bb.numcer
+	AND aa.cofaam = bb.cofaam
+	AND bb.migrac = ''S''
+')
+--
+SELECT * INTO CLPF43 FROM OPENQUERY(DB2400,'SELECT * FROM lscadea.clpf43')
+--
+SELECT * INTO CLPF44 FROM OPENQUERY(DB2400,'SELECT * FROM lscadea.clpf44')	
+--
+SELECT * INTO CTRALTAB FROM OPENQUERY(DB2400,'SELECT * FROM lscadea.CTRALTAB')
+--
+SELECT * INTO ESPF01 FROM OPENQUERY(DB2400,'
+	SELECT a.* FROM lscadea.ESPF01 a, lscadef.migsinies b
+	WHERE a.RAMO = b.RAMO
+	AND a.POLIZA = b.POLIZA
+	AND a.SERIE = b.SERIE
+	AND a.RECLAC = b.RECLAC
+	AND a.RECLAM = b.RECLAM
+	AND b.migra=''S''
+')
+--
+SELECT * INTO GIPF01 FROM OPENQUERY(DB2400,'
+	SELECT b.* FROM lscadef.migfinanc a,lscadea.gipf01 b
+	WHERE a.nrreg = b.nrreg                                               
+')
+--
+SELECT * INTO GIPF02 FROM OPENQUERY(DB2400,'
+	SELECT b.* FROM lscadef.migfinanc a,lscadea.gipf02 b
+	WHERE a.nrreg = b.nrreg                                               
+')
+--
+SELECT * INTO GIPF03 FROM OPENQUERY(DB2400,'
+	SELECT b.* FROM lscadef.migfinanc a, lscadea.gipf03 b
+	WHERE a.nrreg = b.nrreg
+')
+--
+SELECT * INTO GIPF16 FROM OPENQUERY(DB2400,'
+	SELECT b.* FROM lscadef.migfinanc a, lscadea.gipf16 b
+	WHERE a.nrreg = b.nrreg
+')
+--
+SELECT * INTO HJPF01 FROM OPENQUERY(DB2400,'
+	SELECT aa.* FROM LSCADEA.hjpf01 aa, (
+		SELECT ramo,poliza FROM LSCADEF.MIGCARTEI bb
+		WHERE migra=''S''
+		GROUP BY ramo,poliza
+	) bb
+	WHERE  aa.ramo = bb.ramo
+	AND aa.poliza = bb.poliza
+')
+--
+SELECT * INTO HJPF02 FROM OPENQUERY(DB2400,'
+	SELECT aa.* FROM lscadea.hjpf02 aa,lscadef.MIGCARTEI bb
+	WHERE aa.ramo = bb.ramo
+	AND aa.poliza = bb.poliza
+	AND aa.stsrec = bb.stsrec
+	AND aa.numrec = bb.numrec
+')
+--
+SELECT * INTO HJPF05 FROM OPENQUERY(DB2400,'
+	SELECT aa.* FROM lscadea.hjpf05 aa, lscadef.MIGCARTEI bb
+	WHERE aa.ramo = bb.ramo
+	AND aa.poliza = bb.poliza
+	AND aa.stsrec = bb.stsrec
+	AND aa.numrec = bb.numrec
+')
+--
+SELECT * INTO HJPF06 FROM OPENQUERY(DB2400,'
+	SELECT aa.* FROM lscadea.hjpf06 aa, lscadef.MIGCARTEI bb
+	WHERE aa.ramo = bb.ramo
+	AND aa.poliza = bb.poliza
+	AND aa.stsrec = bb.stsrec
+	AND aa.numrec = bb.numrec
+')
+--
+SELECT * INTO HJPF07 FROM OPENQUERY(DB2400,'
+	SELECT aa.* FROM lscadea.hjpf07 aa, lscadef.MIGCARTEI bb
+	WHERE aa.ramo = bb.ramo
+	AND aa.poliza = bb.poliza
+	AND aa.stsrec = bb.stsrec
+	AND aa.numrec = bb.numrec
+')
+--
+SELECT * INTO HJPF08 FROM OPENQUERY(DB2400,'
+	SELECT aa.* FROM lscadea.hjpf08 aa, lscadef.MIGCARTEI bb
+	WHERE aa.ramo = bb.ramo
+	AND aa.poliza = bb.poliza
+	AND aa.stsrec = bb.stsrec
+	AND aa.numrec = bb.numrec
+')
+--
+SELECT * INTO HJPF10 FROM OPENQUERY(DB2400,'SELECT * FROM lscadea.HJPF10 WHERE stat='' ''')
+--
+SELECT * INTO HJPF10M FROM OPENQUERY(DB2400,'SELECT * FROM lscadea.hjpf10m')
+--
+SELECT * INTO HJPF13 FROM OPENQUERY(DB2400,'
+	SELECT aa.* FROM lscadea.hjpf13 aa, lscadef.MIGCARTEI bb
+	WHERE aa.ramo = bb.ramo
+	AND aa.poliza = bb.poliza
+	AND aa.stsrec = bb.stsrec
+	AND aa.numrec = bb.numrec
+')
+--
+SELECT * INTO HJPF21 FROM OPENQUERY(DB2400, 'SELECT * FROM lscadea.hjpf21')                                        
+--
+SELECT * INTO HJPF25 FROM OPENQUERY(DB2400,'
+	SELECT aa.* FROM lscadea.hjpf25 aa, lscadef.MIGCARTEI bb
+	WHERE aa.ramo = bb.ramo
+	AND aa.poliza = bb.poliza
+	AND aa.stsrec = bb.stsrec
+	AND aa.numrec = bb.numrec
+')
+--
+SELECT * INTO HJPF26 FROM OPENQUERY(DB2400,'
+	SELECT aa.* FROM lscadea.hjpf26 aa, lscadef.MIGCARTEI bb
+	WHERE aa.ramo = bb.ramo
+	AND aa.poliza = bb.poliza
+	AND aa.stsrec = bb.stsrec
+	AND aa.numrec = bb.numrec
+')
+--
+SELECT * INTO HJPF27 FROM OPENQUERY(DB2400,'
+	SELECT aa.* FROM LSCADEA.hjpf27 aa, (
+		SELECT ramo,poliza FROM LSCADEF.MIGCARTEI bb
+		WHERE migra=''S''
+		GROUP BY ramo,poliza
+	) bb
+	WHERE  aa.ramo = bb.ramo
+	AND aa.poliza = bb.poliza
+')
+--
+SELECT * INTO HJPF29 FROM OPENQUERY(DB2400,'
+	SELECT aa.* FROM LSCADEA.hjpf29 aa , (
+		SELECT ramo,poliza FROM LSCADEF.MIGCARTEI bb
+		WHERE migra=''S''
+		GROUP BY ramo,poliza
+	) bb
+	WHERE  aa.ramo = bb.ramo
+	AND aa.poliza = bb.poliza
+')
+--
+SELECT * INTO HJPF30 FROM OPENQUERY(DB2400,'
+	SELECT aa.* FROM LSCADEA.hjpf30 aa , (
+		SELECT ramo,poliza FROM LSCADEF.MIGCARTEI bb
+		WHERE migra=''S''
+		GROUP BY ramo,poliza
+	) bb
+	WHERE  aa.ramo = bb.ramo
+	AND aa.poliza = bb.poliza
+')
+--
+SELECT * INTO HJPF32 FROM OPENQUERY(DB2400, 'SELECT * FROM lscadea.hjpf32')
+--
+SELECT * INTO HJPF32C FROM OPENQUERY(DB2400,'
+	SELECT aa.* FROM LSCADEA.hjpf32C aa , (
+		SELECT ramo,poliza FROM LSCADEF.MIGCARTEI bb
+		WHERE migra=''S''
+		GROUP BY ramo,poliza
+	) bb
+	WHERE  aa.ramo = bb.ramo
+	AND aa.poliza = bb.poliza
+')
+--
+SELECT * INTO HJPF35 FROM OPENQUERY(DB2400,'
+	SELECT aa.* FROM lscadea.hjpF35 aa, lscadef.MIGCARTEI bb
+	WHERE aa.ramo = bb.ramo
+	AND aa.poliza = bb.poliza
+	AND aa.stsrec = bb.stsrec
+	AND aa.numrec = bb.numrec
+')
+--
+SELECT * INTO HJPF63 FROM OPENQUERY(DB2400,'
+	SELECT aa.* FROM lscadea.hjpf63 aa, lscadef.MIGCARTEI bb
+	WHERE aa.ramo = bb.ramo
+	AND aa.poliza = bb.poliza
+	AND aa.stsrec = bb.stsrec
+	AND aa.numrec = bb.numrec
+')
+--
+SELECT * INTO HJPF71 FROM OPENQUERY(DB2400,'
+	SELECT aa.* FROM lscadea.hjpf71 aa, lscadef.MIGCARTEI bb
+	WHERE aa.ramo = bb.ramo
+	AND aa.poliza = bb.poliza
+	AND aa.stsrec = bb.stsrec
+	AND aa.numrec = bb.numrec
+')
+--
+SELECT * INTO HJPF83 FROM OPENQUERY(DB2400,'
+	SELECT aa.* FROM lscadea.hjpf83 aa, lscadef.MIGCARTEI bb
+	WHERE aa.ramo = bb.ramo
+	AND aa.poliza = bb.poliza
+	AND aa.stsrec = bb.stsrec
+	AND aa.numrec = bb.numrec
+')
+--
+SELECT * INTO HJPF84 FROM OPENQUERY(DB2400,'
+	SELECT aa.* FROM lscadea.hjpf84 aa, lscadef.MIGCARTEI bb
+	WHERE aa.ramo = bb.ramo
+	AND aa.poliza = bb.poliza
+	AND aa.stsrec = bb.stsrec
+	AND aa.numrec = bb.numrec
+')
+--
+SELECT * INTO HJPF94 FROM OPENQUERY(DB2400,'
+	SELECT aa.* FROM lscadea.hjpf94 aa, lscadef.MIGCARTEI bb
+	WHERE aa.ramo = bb.ramo
+	AND aa.poliza = bb.poliza
+	AND aa.stsrec = bb.stsrec
+	AND aa.numrec = bb.numrec
+')
+--
+SELECT * INTO HJPF95 FROM OPENQUERY(DB2400,'
+	SELECT aa.* FROM lscadea.hjpf95 aa, lscadef.MIGCARTEI bb
+	WHERE aa.ramo = bb.ramo
+	AND aa.poliza = bb.poliza
+	AND aa.stsrec = bb.stsrec
+	AND aa.numrec = bb.numrec
+')
+--
+SELECT * INTO HJPF98 FROM OPENQUERY(DB2400,'
+	SELECT aa.* FROM lscadea.hjpf98 aa, lscadef.MIGCARTEI bb
+	WHERE aa.ramo = bb.ramo
+	AND aa.poliza = bb.poliza
+	AND aa.stsrec = bb.stsrec
+	AND aa.numrec = bb.numrec
+')
+--
+SELECT * INTO IMPF01 FROM OPENQUERY(DB2400,'SELECT * FROM lscadea.impf01')
+--
+SELECT * INTO IMPF02 FROM OPENQUERY(DB2400,'SELECT * FROM lscadea.impf02')
+--
+SELECT * INTO MCPF01 FROM OPENQUERY(DB2400,'SELECT * FROM lscadea.MCPF01')
+--
+SELECT * INTO ORDENE FROM OPENQUERY(DB2400,'SELECT * FROM lscadea.ordene')
+--
+SELECT * INTO ORPF06 FROM OPENQUERY(DB2400,'SELECT * FROM lscadea.orpf06')
+--
+SELECT * INTO RBPF10 FROM OPENQUERY(DB2400,'
+	SELECT a.* FROM lscadea.RBPF10 a,lscadef.migsinies b
+	WHERE a.RAMO = b.RAMO
+	AND a.POLIZA =  b.POLIZA
+	AND a.SERIE  =  b.SERIE
+	AND a.RECLAC =  b.RECLAC
+	AND a.RECLAM =  b.RECLAM
+	AND b.migra=''S''
+')
+--
+SELECT * INTO REPF14 FROM OPENQUERY(DB2400,'
+	SELECT aa.* FROM lscadea.repf14 aa, lscadef.MIGCARTEI bb
+	WHERE aa.ramo = bb.ramo
+	AND aa.poliza = bb.poliza
+	AND aa.stsrec = bb.stsrec
+	AND aa.numrec = bb.numrec
+')
+--
+SELECT * INTO REPF15 FROM OPENQUERY(DB2400,'
+	SELECT aa.* FROM lscadea.repf15 aa, lscadef.MIGCARTEI bb
+	WHERE aa.ramo = bb.ramo
+	AND aa.poliza = bb.poliza
+	AND aa.stsrec = bb.stsrec
+	AND aa.numrec = bb.numrec
+')
+--
+SELECT * INTO SIPF01 FROM OPENQUERY(DB2400,'
+	SELECT a.* FROM lscadea.sipf01 a, lscadef.migsinies b
+	WHERE a.RAMO = b.RAMO
+	AND a.POLIZA = b.POLIZA
+	AND a.SERIE = b.SERIE
+	AND a.RECLAC = b.RECLAC
+	AND a.RECLAM = b.RECLAM
+	AND b.migra=''S''
+')
+--
+SELECT * INTO SIPF05 FROM OPENQUERY(DB2400,'
+	SELECT a.* FROM lscadea.sipf05 a,lscadef.migsinies b
+	WHERE a.RAMO = b.RAMO
+	AND a.POLIZA =  b.POLIZA
+	AND a.SERIE  =  b.SERIE
+	AND a.RECLAC =  b.RECLAC
+	AND a.RECLAM =  b.RECLAM
+	AND b.migra=''S''
+')
+--
+SELECT * INTO SIPF07 FROM OPENQUERY(DB2400,'
+	SELECT a.* FROM lscadea.sipf07 a,lscadef.migsinies b
+	WHERE a.RAMO = b.RAMO
+	AND a.POLIZA = b.POLIZA
+	AND a.SERIE  = b.SERIE
+	AND a.RECLAC = b.RECLAC
+	AND a.RECLAM = b.RECLAM
+	AND b.migra=''S''
+')
+--
+SELECT * INTO SIPF08 FROM OPENQUERY(DB2400,'
+	SELECT a.* FROM lscadea.sipf08 a, lscadef.migsinies b
+	WHERE a.RAMO = b.RAMO
+	AND a.POLIZA = b.POLIZA
+	AND a.SERIE  = b.SERIE
+	AND a.RECLAC = b.RECLAC
+	AND a.RECLAM = b.RECLAM
+	AND b.migra=''S''
+')
+--
+SELECT * INTO SIPF10 FROM OPENQUERY(DB2400,'
+	SELECT a.* FROM lscadea.sipf10 a, lscadef.migsinies b
+	WHERE a.RAMO = b.RAMO
+	AND a.POLIZA = b.POLIZA
+	AND a.SERIE = b.SERIE
+	AND a.RECLAC = b.RECLAC
+	AND a.RECLAM = b.RECLAM
+	AND b.migra=''S''
+')
+--
+SELECT * INTO SIPF25 FROM OPENQUERY(DB2400,'SELECT * FROM lscadea.SIPF25')
+--                                        
+SELECT * INTO SIPF30 FROM OPENQUERY(DB2400,'
+	SELECT a.* FROM lscadea.sipf30 a, lscadef.migsinies b
+	WHERE a.RAMO = b.RAMO
+	AND a.POLIZA = b.POLIZA
+	AND a.SERIE = b.SERIE
+	AND a.RECLAC = b.RECLAC
+	AND a.RECLAM = b.RECLAM
+	AND b.migra=''S''
+')
+--
+SELECT * INTO SIPF31 FROM OPENQUERY(DB2400,'
+	SELECT a.* FROM lscadea.sipf31 a, lscadef.migsinies b
+	WHERE a.RAMO = b.RAMO
+	AND a.POLIZA = b.POLIZA
+	AND a.SERIE = b.SERIE
+	AND a.RECLAC = b.RECLAC
+	AND a.RECLAM = b.RECLAM
+	AND b.migra=''S''
+')
+--
+SELECT * INTO SIPF34 FROM OPENQUERY(DB2400,'
+	SELECT a.* FROM lscadea.sipf34 a,lscadef.migsinies b
+	WHERE a.RAMO = b.RAMO
+	AND a.POLIZA = b.POLIZA
+	AND a.SERIE  = b.SERIE
+	AND a.RECLAC = b.RECLAC
+	AND a.RECLAM = b.RECLAM
+	AND b.migra=''S''
+')
+--
+SELECT * INTO SIPF37 FROM OPENQUERY(DB2400,'
+	SELECT a.* FROM lscadea.sipf37 a,lscadef.migsinies b
+	WHERE a.RAMO = b.RAMO
+	AND a.POLIZA = b.POLIZA
+	AND a.SERIE  = b.SERIE
+	AND a.RECLAC = b.RECLAC
+	AND a.RECLAM = b.RECLAM
+	AND b.migra=''S''
+')
+--
+SELECT * INTO SIPF39 FROM OPENQUERY(DB2400,'SELECT * FROM lscadea.sipf39')
+--
+SELECT * INTO SIPF40 FROM OPENQUERY(DB2400,'
+	SELECT a.* FROM lscadea.sipf40 a,lscadef.migsinies b
+	WHERE a.RAMO = b.RAMO
+	AND a.POLIZA = b.POLIZA
+	AND a.SERIE  = b.SERIE
+	AND a.RECLAC = b.RECLAC
+	AND a.RECLAM = b.RECLAM
+	AND b.migra=''S''
+')
+--
+SELECT * INTO SIPF41 FROM OPENQUERY(DB2400,'
+	SELECT a.* FROM lscadea.sipf41 a,lscadef.migsinies b
+	WHERE a.RAMO = b.RAMO
+	AND a.POLIZA = b.POLIZA
+	AND a.SERIE  = b.SERIE
+	AND a.RECLAC = b.RECLAC
+	AND a.RECLAM = b.RECLAM
+	AND b.migra=''S''
+')
+--
+SELECT * INTO SIPF74 FROM OPENQUERY(DB2400,'SELECT * FROM lscadea.SIPF74')
+--
+SELECT * INTO SIPF86 FROM OPENQUERY(DB2400,'
+	SELECT a.* FROM lscadea.sipf86 a,lscadef.migsinies b
+	WHERE a.RAMO = b.RAMO
+	AND a.POLIZA = b.POLIZA
+	AND a.SERIE  = b.SERIE
+	AND a.RECLAC = b.RECLAC
+	AND a.RECLAM = b.RECLAM
+	AND b.migra=''S''
+')
+--
+SELECT * INTO SIPF90 FROM OPENQUERY(DB2400,'
+	SELECT a.* FROM lscadea.sipf90 a,lscadef.migsinies b
+	WHERE a.RAMO = b.RAMO
+	AND a.POLIZA = b.POLIZA
+	AND a.SERIE  = b.SERIE
+	AND a.RECLAC = b.RECLAC
+	AND a.RECLAM = b.RECLAM
+	AND b.migra=''S''
+')
+--
+SELECT * INTO SIPFR70 FROM OPENQUERY(DB2400,'
+	SELECT a.* FROM lscadea.sipfR70 a,lscadef.migsinies b
+	WHERE a.RAMO = b.RAMO
+	AND a.POLIZA = b.POLIZA
+	AND a.SERIE  = b.SERIE
+	AND a.RECLAC = b.RECLAC
+	AND a.RECLAM = b.RECLAM
+	AND b.migra=''S''
+')
+--
+DROP TABLE HJPF01_REN
+SELECT A.* INTO HJPF01_REN FROM OPENQUERY(DB2400PROD,'SELECT * FROM LSCADEA.HJPF01') A, (
+	SELECT DISTINCT RAMO,POLIZA FROM ORAACSELMIGRA..MIGRA.SINIESTROS_RECIBO_MULTIRAMO
+) B
+WHERE A.RAMO = B.RAMO
+AND A.POLIZA = B.POLIZA
+--
+DROP TABLE HJPF02_REN
+SELECT A.* INTO HJPF02_REN FROM OPENQUERY(DB2400PROD,'SELECT * FROM LSCADEA.HJPF02') A, (
+	SELECT DISTINCT RAMO,POLIZA,NUMREC FROM ORAACSELMIGRA..MIGRA.SINIESTROS_RECIBO_MULTIRAMO
+) B
+WHERE A.RAMO = B.RAMO
+AND A.POLIZA = B.POLIZA
+AND A.NUMREC = B.NUMREC
+--
+DROP TABLE HJPF03_REN
+SELECT A.* INTO HJPF03_REN FROM OPENQUERY(DB2400PROD,'SELECT * FROM LSCADEA.HJPF03') A, (
+	SELECT DISTINCT RAMO,POLIZA,NUMREC FROM ORAACSELMIGRA..MIGRA.SINIESTROS_RECIBO_MULTIRAMO
+) B
+WHERE A.RAMO = B.RAMO
+AND A.POLIZA = B.POLIZA
+AND A.NUMREC = B.NUMREC
+--
+DROP TABLE HJPF05_REN
+SELECT A.* INTO HJPF05_REN FROM OPENQUERY(DB2400PROD,'SELECT * FROM LSCADEA.HJPF05') A, (
+	SELECT DISTINCT RAMO,POLIZA,NUMREC FROM ORAACSELMIGRA..MIGRA.SINIESTROS_RECIBO_MULTIRAMO
+) B
+WHERE A.RAMO = B.RAMO
+AND A.POLIZA = B.POLIZA
+AND A.NUMREC = B.NUMREC
+--
+SELECT * INTO CLPF05_REN FROM OPENQUERY(DB2400PROD,'SELECT * FROM LSCADEA.CLPF05')	
+--
+SELECT * INTO CLPF07_REN FROM OPENQUERY(DB2400PROD,'SELECT * FROM LSCADEA.CLPF07')
+--
+SELECT * INTO CLPF08_REN FROM OPENQUERY(DB2400PROD,'SELECT * FROM LSCADEA.CLPF08')
+--
+SELECT * INTO CLPF53_REN FROM OPENQUERY(DB2400PROD,'SELECT * FROM LSCADEA.CLPF53')
+--
+SELECT * INTO CLPF08N_REN FROM OPENQUERY(DB2400PROD,'SELECT * FROM LSCADEA.CLPF08N WHERE CERVEH <> '' ''')
+--
+DROP TABLE REPF14_REN
+SELECT A.* INTO REPF14_REN FROM OPENQUERY(DB2400PROD,'SELECT * FROM LSCADEA.REPF14') A, (
+	SELECT DISTINCT RAMO,POLIZA,NUMREC FROM ORAACSELMIGRA..MIGRA.SINIESTROS_RECIBO_MULTIRAMO
+) B
+WHERE A.RAMO = B.RAMO
+AND A.POLIZA = B.POLIZA
+AND A.NUMREC = B.NUMREC
+--
+DROP TABLE REPF15_REN
+SELECT A.* INTO REPF15_REN FROM OPENQUERY(DB2400PROD,'SELECT * FROM LSCADEA.REPF15') A, (
+	SELECT DISTINCT RAMO,POLIZA,NUMREC FROM ORAACSELMIGRA..MIGRA.SINIESTROS_RECIBO_MULTIRAMO
+) B
+WHERE A.RAMO = B.RAMO
+AND A.POLIZA = B.POLIZA
+AND A.NUMREC = B.NUMREC
+--
+DROP TABLE FNPF05_REN
+SELECT A.* INTO FNPF05_REN FROM OPENQUERY(DB2400PROD,'SELECT * FROM LSCADEA.FNPF05') A, (
+	SELECT DISTINCT RAMO,POLIZA,NUMREC FROM ORAACSELMIGRA..MIGRA.SINIESTROS_RECIBO_MULTIRAMO
+) B
+WHERE A.RAMO = B.RAMO
+AND A.POLIZA = B.POLIZA
+AND A.NUMREC = B.NUMREC
+--
+DROP TABLE HJPF09A_REN
+SELECT A.* INTO HJPF09A_REN FROM OPENQUERY(DB2400PROD,'SELECT * FROM LSCADEA.HJPF09A') A, (
+	SELECT DISTINCT RAMO,POLIZA,NUMREC FROM ORAACSELMIGRA..MIGRA.SINIESTROS_RECIBO_MULTIRAMO
+) B
+WHERE A.RAMO = B.RAMO
+AND A.POLIZA = B.POLIZA
+AND A.NUMREC = B.NUMREC
+--
+DROP TABLE HJPF01_REN
+SELECT A.* INTO HJPF01_REN FROM OPENQUERY(DB2400PROD,'SELECT * FROM LSCADEA.HJPF01') A, (
+	SELECT DISTINCT RAMO,POLIZA FROM ORAACSELMIGRA..MIGRA.SINIESTROS_MIGRA_REN
+) B
+WHERE A.RAMO = B.RAMO
+AND A.POLIZA = B.POLIZA
+--
+DROP TABLE HJPF02_REN
+SELECT A.* INTO HJPF02_REN FROM OPENQUERY(DB2400PROD,'SELECT * FROM LSCADEA.HJPF02')A, (
+	SELECT DISTINCT RAMO,POLIZA,NUMREC FROM ORAACSELMIGRA..MIGRA.SINIESTROS_MIGRA_REN
+) B
+WHERE A.RAMO = B.RAMO
+AND A.POLIZA = B.POLIZA
+AND A.NUMREC = B.NUMREC
+--
+DROP TABLE HJPF03_REN
+SELECT A.* INTO HJPF03_REN FROM OPENQUERY(DB2400PROD,'SELECT * FROM LSCADEA.HJPF03') A, (
+	SELECT DISTINCT RAMO,POLIZA,NUMREC FROM ORAACSELMIGRA..MIGRA.SINIESTROS_MIGRA_REN
+) B
+WHERE A.RAMO = B.RAMO
+AND A.POLIZA = B.POLIZA
+AND A.NUMREC = B.NUMREC
+--
+DROP TABLE HJPF05_REN
+SELECT A.* INTO HJPF05_REN FROM OPENQUERY(DB2400PROD,'SELECT * FROM LSCADEA.HJPF05') A, (
+	SELECT DISTINCT RAMO,POLIZA,NUMREC FROM ORAACSELMIGRA..MIGRA.SINIESTROS_MIGRA_REN
+) B
+WHERE A.RAMO = B.RAMO
+AND A.POLIZA = B.POLIZA
+AND A.NUMREC = B.NUMREC
+AND A.CODCOB = B.CODCOB
+--
+DROP TABLE SIPF01_REN
+SELECT A.* INTO SIPF01_REN FROM OPENQUERY(DB2400PROD,'SELECT * FROM LSCADEA.SIPF01') A, (
+	SELECT DISTINCT RAMO,POLIZA,SERIE,RECLAM FROM ORAACSELMIGRA..MIGRA.SINIESTROS_MIGRA_REN
+) B
+WHERE A.RAMO = B.RAMO
+AND A.POLIZA = B.POLIZA
+AND A.SERIE  = B.SERIE
+AND A.RECLAM = B.RECLAM
+--
+DROP TABLE SIPF07_REN
+SELECT A.* INTO SIPF07_REN FROM OPENQUERY(DB2400PROD,'SELECT * FROM LSCADEA.SIPF07') A, (
+	SELECT DISTINCT RAMO,POLIZA,SERIE,RECLAM,CODCOB FROM ORAACSELMIGRA..MIGRA.SINIESTROS_MIGRA_REN
+) B
+WHERE A.RAMO = B.RAMO
+AND A.POLIZA = B.POLIZA
+AND A.SERIE  = B.SERIE
+AND A.RECLAM = B.RECLAM
+AND A.CODCOB = B.CODCOB
+--
+SELECT * INTO CLPF05_REN FROM OPENQUERY(DB2400PROD,'SELECT * FROM LSCADEA.CLPF05')
+--
+SELECT * INTO CLPF07_REN FROM OPENQUERY(DB2400PROD,'SELECT * FROM LSCADEA.CLPF07')
+--
+SELECT * INTO CLPF08_REN FROM OPENQUERY(DB2400PROD, 'SELECT * FROM LSCADEA.CLPF08')
+--
+SELECT * INTO CLPF53_REN FROM OPENQUERY(DB2400PROD,'SELECT * FROM LSCADEA.CLPF53')
+--
+SELECT * INTO CLPF08N_REN FROM OPENQUERY(DB2400PROD,'SELECT * FROM LSCADEA.CLPF08N WHERE CERVEH <> '' '' ')
+--
+DROP TABLE REPF14_REN
+SELECT A.* INTO REPF14_REN FROM OPENQUERY(DB2400PROD,'SELECT * FROM LSCADEA.REPF14') A, (
+	SELECT DISTINCT RAMO,POLIZA,NUMREC FROM ORAACSELMIGRA..MIGRA.SINIESTROS_MIGRA_REN
+) B
+WHERE A.RAMO = B.RAMO
+AND A.POLIZA = B.POLIZA
+AND A.STSREC = B.STSREC
+AND A.NUMREC = B.NUMREC
+--
+DROP TABLE REPF15_REN
+SELECT A.* INTO REPF15_REN FROM OPENQUERY(DB2400PROD,'SELECT * FROM LSCADEA.REPF15') A, (
+	SELECT DISTINCT RAMO,POLIZA,NUMREC FROM ORAACSELMIGRA..MIGRA.SINIESTROS_MIGRA_REN
+) B
+WHERE A.RAMO = B.RAMO
+AND A.POLIZA = B.POLIZA
+AND A.STSREC = B.STSREC
+AND A.NUMREC = B.NUMREC
+--
+DROP TABLE HJPF01;
+SELECT * INTO HJPF01 FROM OPENQUERY(DB2400,'
+	SELECT aa.* FROM lscadea.hjpf01 aa,(
+		SELECT ramo,poliza FROM lscadea.migcartei bb
+		WHERE migra=''S''
+		GROUP BY ramo,poliza
+	) bb
+	WHERE aa.ramo = bb.ramo
+	AND aa.poliza = bb.poliza
+')
+--
+DROP TABLE HJPF205
+SELECT * INTO HJPF205 FROM OPENQUERY(DB2400,'SELECT * FROM lscadea.hjpf205')
+--
+DROP TABLE MCPF01
+SELECT * INTO MCPF01 FROM OPENQUERY(DB2400,'SELECT * FROM lscadea.mcpf01')
+--
+DROP TABLE FNPF01
+SELECT * INTO FNPF01 FROM OPENQUERY(DB2400,'SELECT * FROM lscadea.fnpf01')
+--
+DROP TABLE FNPF02
+SELECT * INTO FNPF02 FROM OPENQUERY(DB2400,'SELECT * FROM lscadea.fnpf02')
+--
+DROP TABLE FNPF03
+SELECT * INTO FNPF03 FROM OPENQUERY(DB2400,'SELECT * FROM lscadea.fnpf03')
+--
+DROP TABLE ORDENE
+SELECT * INTO ORDENE FROM OPENQUERY(DB2400,'
+	SELECT dd.* FROM (
+		SELECT bb.* FROM lscadea.migsinies aa,lscadea.sipf05 bb
+		WHERE aa.ramo = bb.ramo
+		AND aa.poliza = bb.poliza
+		AND aa.serie = bb.serie
+		AND aa.reclac = bb.reclac
+		AND aa.reclam = bb.reclam
+	) cc, lscadea.ordene dd
+	WHERE cc.anoemi = dd.anoemi
+	AND cc.corord = dd.corord
+	AND dd.ANOEMI > 2005 
+	AND dd.STSIMD = ''C''
+	AND NOMORD NOT IN ('' '')
+	AND dd.MONTO  > 0
+	AND dd.CORORD > 0
+	AND dd.NMROPA > 0
+	AND dd.ANOOPA > 0
+	AND cc.STSBEN <> ''A''
+	AND cc.TIPOPG <> ''R''
+')
+--
+DROP TABLE ORPF06
+SELECT * INTO ORPF06 FROM OPENQUERY(DB2400,'
+	SELECT aa.* FROM  lscadea.ORPF06 aa,lscadea.SIPF05 bb
+	WHERE aa.ANOEMI > 2005
+	AND aa.STSOPA = ''C''
+	AND aa.ANOEMI = bb.ANOEMI
+	AND NOMOPA NOT IN ('' '')
+	AND bb.CORORD = aa.CORORD
+	AND aa.MOTOPA > 0
+	AND aa.CORORD > 0
+	AND aa.NMROPA > 0
+	AND aa.ANOOPA > 0
+	AND bb.STSBEN <> ''A''
+	AND bb.TIPOPG <> ''R''
+')
+--
+DROP TABLE SIPF05
+SELECT * INTO SIPF05 FROM OPENQUERY(DB2400,'
+	SELECT aa.* FROM  lscadea.sipf05 aa,lscadea.migsinies bb
+	WHEREaa.ramo = bb.ramo 
+	AND aa.poliza = bb.poliza 
+	AND aa.serie = bb.serie 
+	AND aa.reclam = bb.reclam
+	AND bb.migra = ''S''
+')
+--
+DROP TABLE CLPF05
+SELECT * INTO CLPF05 FROM OPENQUERY(DB2400,'
+	SELECT aa.* FROM lscadea.clpf05 aa,lscadea.migcarcer bb
+	WHERE aa.ramo = bb.ramo
+	AND aa.poliza = bb.poliza
+	AND aa.numcer = bb.numcer
+	AND aa.cofaam = bb.cofaam
+	AND bb.migrac = ''S''
+')
+--
+DROP TABLE CLPF07
+SELECT * INTO CLPF07 FROM OPENQUERY(DB2400,'
+	SELECT aa.* FROM lscadea.clpf07 aa,lscadea.migcarcer bb
+	WHERE aa.ramo = bb.ramo
+	AND aa.poliza = bb.poliza
+	AND aa.cerveh = bb.numcer
+	AND bb.migrac = ''S''
+')
+--
+DROP TABLE IMPF01
+SELECT * INTO IMPF01 FROM OPENQUERY(DB2400,'SELECT * FROM lscadea.impf01')
+--
+DROP TABLE HJPF83
+SELECT * INTO HJPF83 FROM OPENQUERY(DB2400,'
+	SELECT aa.* FROM lscadea.hjpf83 aa,lscadea.migcartei bb
+	WHERE aa.ramo = bb.ramo
+	AND aa.poliza = bb.poliza
+	AND aa.stsrec = bb.stsrec
+	AND aa.numrec = bb.numrec
+	AND bb.migra = ''S''
+')
+--
+DROP TABLE HJPF84
+SELECT * INTO HJPF84 FROM OPENQUERY(DB2400,'SELECT aa.* FROM lscadea.hjpf84 aa,
+	lscadea.migcartei bb
+WHERE aa.ramo = bb.ramo
+	AND aa.poliza = bb.poliza
+	AND aa.stsrec = bb.stsrec
+	AND aa.numrec = bb.numrec
+	AND bb.migra = ''S''')
+--
+DROP TABLE ORDENE
+SELECT * INTO ORDENE FROM OPENQUERY(DB2400,'
+	SELECT dd.* FROM (
+		SELECT bb.* FROM lscadea.migsinies aa,lscadea.sipf05 bb
+		WHERE aa.ramo = bb.ramo
+		AND aa.poliza = bb.poliza
+		AND aa.serie = bb.serie
+		AND aa.reclac = bb.reclac
+		AND aa.reclam = bb.reclam
+	) cc, lscadea.ordene dd
+	WHERE cc.anoemi = dd.anoemi
+	AND cc.corord = dd.corord
+	AND dd.ANOEMI > 2005
+	AND dd.STSIMD = ''C''
+	AND NOMORD NOT IN ('' '')
+	AND dd.MONTO>0 
+	AND dd.CORORD>0   
+	AND dd.NMROPA>0  
+	AND dd.ANOOPA>0
+	AND cc.STSBEN<>''A'' 
+	AND cc.TIPOPG<>''R''
+')
+--
+DROP TABLE RBPF10
+SELECT * INTO RBPF10 FROM OPENQUERY(DB2400,'
+	SELECT a.* FROM lscadea.RBPF10 a, lscadea.migsinies b
+	WHERE a.RAMO = b.RAMO 
+	AND a.POLIZA = b.POLIZA
+	AND a.SERIE  = b.SERIE
+	AND a.RECLAC = b.RECLAC
+	AND a.RECLAM = b.RECLAM
+	AND b.migra =''S''
+')
+--
+DROP TABLE SIPF01
+SELECT * INTO SIPF01 FROM OPENQUERY(DB2400,'
+	SELECT a.* FROM lscadea.sipf01 a, lscadea.migsinies b
+	WHERE a.RAMO = b.RAMO
+	AND a.POLIZA =  b.POLIZA
+	AND a.SERIE  =  b.SERIE
+	AND a.RECLAC =  b.RECLAC
+	AND a.RECLAM =  b.RECLAM
+	AND b.migra = ''S''
+')
+--
+DROP TABLE SIPF05
+SELECT * INTO SIPF05 FROM OPENQUERY(DB2400,'
+	SELECT aa.* FROM  lscadea.sipf05 aa,lscadea.migsinies bb
+	WHERE aa.ramo = bb.ramo 
+	AND aa.poliza = bb.poliza 
+	AND aa.serie = bb.serie 
+	AND aa.reclam = bb.reclam
+	AND bb.migra = ''S''
+')
+--
+DROP TABLE SIPF07
+SELECT * INTO SIPF07 FROM OPENQUERY(DB2400,'
+	SELECT a.* FROM lscadea.sipf07 a,lscadea.migsinies b
+	WHERE a.RAMO = b.RAMO 
+	AND a.POLIZA = b.POLIZA
+	AND a.SERIE  = b.SERIE
+	AND a.RECLAC = b.RECLAC
+	AND a.RECLAM = b.RECLAM
+	AND b.migra = ''S''
+')
+--
+DROP TABLE SIPF08
+SELECT * INTO SIPF08 FROM OPENQUERY(DB2400,'
+	SELECT a.* FROM lscadea.sipf08 a,lscadea.migsinies b
+	WHERE a.RAMO = b.RAMO 
+	AND a.POLIZA = b.POLIZA
+	AND a.SERIE  = b.SERIE
+	AND a.RECLAC = b.RECLAC
+	AND a.RECLAM = b.RECLAM
+	AND b.migra = ''S''
+')
+--
+DROP TABLE SIPF10
+SELECT * INTO SIPF10 FROM OPENQUERY(DB2400,'
+	SELECT a.* FROM lscadea.sipf10 a,lscadea.migsinies b
+	WHERE a.RAMO = b.RAMO 
+	AND a.POLIZA = b.POLIZA
+	AND a.SERIE  = b.SERIE
+	AND a.RECLAC = b.RECLAC
+	AND a.RECLAM = b.RECLAM
+	AND b.migra = ''S''
+')
+--
+DROP TABLE SIPF30
+SELECT * INTO SIPF30 FROM OPENQUERY(DB2400,'
+	SELECT a.* FROM lscadea.sipf30 a,lscadea.migsinies b
+	WHERE a.RAMO = b.RAMO 
+	AND a.POLIZA = b.POLIZA
+	AND a.SERIE  = b.SERIE
+	AND a.RECLAC = b.RECLAC
+	AND a.RECLAM = b.RECLAM
+	AND b.migra = ''S''
+')
+--
+DROP TABLE SIPF31
+SELECT * INTO SIPF31 FROM OPENQUERY(DB2400,'
+	SELECT a.* FROM lscadea.sipf31 a, lscadea.migsinies b
+	WHERE a.RAMO = b.RAMO 
+	AND a.POLIZA = b.POLIZA
+	AND a.SERIE  = b.SERIE
+	AND a.RECLAC = b.RECLAC
+	AND a.RECLAM = b.RECLAM
+	AND b.migra = ''S''
+')
+--
+DROP TABLE SIPF34
+SELECT * INTO SIPF34 FROM OPENQUERY(DB2400,'
+	SELECT a.* FROM lscadea.sipf34 a,lscadea.migsinies b
+	WHERE a.RAMO = b.RAMO
+	AND a.POLIZA = b.POLIZA
+	AND a.SERIE  = b.SERIE
+	AND a.RECLAC = b.RECLAC
+	AND a.RECLAM = b.RECLAM
+	AND b.migra = ''S''
+')
+--
+DROP TABLE SIPF37
+SELECT * INTO SIPF37 FROM OPENQUERY(DB2400,'
+	SELECT a.* FROM lscadea.sipf37 a,lscadea.migsinies b        
+ WHERE 
+ a.RAMO   =  b.RAMO 
+	AND a.POLIZA =  b.POLIZA
+	AND a.SERIE  =  b.SERIE
+	AND a.RECLAC =  b.RECLAC
+	AND a.RECLAM =  b.RECLAM
+	AND b.migra = ''S''')
+--
+DROP TABLE SIPF40
+SELECT * INTO SIPF40 FROM OPENQUERY(DB2400,'
+	SELECT a.* FROM lscadea.sipf40 a,lscadea.migsinies b
+	WHERE a.RAMO = b.RAMO 
+	AND a.POLIZA = b.POLIZA
+	AND a.SERIE  = b.SERIE
+	AND a.RECLAC = b.RECLAC
+	AND a.RECLAM = b.RECLAM
+	AND b.migra = ''S''
+')
+--
+SELECT DISTINCT campo8, convert(varchar,campo8,103), campo8,len(campo8), fact_num
+FROM SERVICE.dbo.factura WHERE campo8 NOT LIKE '%-%-%' ORDER BY 1
+--
+SELECT co_prov,prov_des,rif,REPLACE(rif,'-','') FROM OVERLAND.dbo.prov WHERE LEFT(rif,1) = 'I'
+SELECT * FROM STAR01.dbo.docum_cc
+SELECT * FROM Profit_RG.dbo.Reclamo_Tab_Accion
+SELECT * FROM Profit_RG.dbo.Notificacion_email WHERE id_tipo=1 AND empresa = 'STAR01'
+DELETE FROM Profit_RG.dbo.Reclamo_Accion
+DELETE FROM Profit_RG.dbo.Reclamo_Cliente
+--
+UPDATE OVERLAND.dbo.prov SET rif = REPLACE(rif,'-','') WHERE LEFT(rif,1) = 'I';
+UPDATE dbo.Notificacion_email
+SET e_para = 'omacazana@stargas.com.ve;importaciones01@stargas.com.ve',
+	e_cc= 'administracion@stargas.com.ve;ggeneral@stargas.com.ve',
+	e_cco = 'soporte03@stargas.com.ve;ejgraterolz@gmail.com;eduardoj.herrerac@gmail.com'
+WHERE id_tipo=1 AND empresa = 'STAR01';
+--
+UPDATE dbo.Notificacion_email
+SET e_para = 'l.gutierrez@overlandvenezuela.com;importaciones@stargas.com.ve',
+	e_cc= 'nsocorro@stargas.com.ve;ggeneral@stargas.com.ve',
+	e_cco = 'soporte03@stargas.com.ve;ejgraterolz@gmail.com;eduardoj.herrerac@gmail.com'
+WHERE id_tipo=1 AND empresa = 'OVERLAND';
+--
+SELECT * FROM [STAR01].[dbo].art;
+SELECT * FROM [STAR01].[dbo].tabulado;
+SELECT * FROM [STAR01].[dbo].unidades;
+SELECT * FROM [STAR01].[dbo].proceden;
+SELECT * FROM [STAR01].[dbo].prov;
+SELECT * FROM [STAR01].[dbo].sub_lin;
+SELECT * FROM [STAR01].[dbo].lin_art;
+SELECT * FROM [STAR01].[dbo].cat_art;
+SELECT * FROM [STAR01].[dbo].colores;
+SELECT * FROM [STAR01].[dbo].sub_alma;
+--
+SELECT * FROM [Profit_RG].[dbo].[Notificacion_email];
+SELECT * FROM [Profit_RG].[dbo].[Notificacion_tipo]
+SELECT * FROM [STAR01].[dbo].[ordenes] ORDER BY 1 DESC
+--
+USE [master]
+-- Crea Login a SQL Server
+DROP LOGIN [elzyra]
+CREATE LOGIN [elzyra] WITH PASSWORD=N'', DEFAULT_DATABASE=[ELZYRA], CHECK_EXPIRATION=OFF, CHECK_POLICY=OFF
+ALTER LOGIN [elzyra] ENABLE
+-- Crea Permiso a BD
+DROP USER [elzyra]
+CREATE USER [elzyra] FOR LOGIN [elzyra]
+ALTER USER [elzyra] WITH DEFAULT_SCHEMA=[dbo]

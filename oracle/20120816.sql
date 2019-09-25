@@ -1,0 +1,36 @@
+DECLARE
+	CURSOR CUR_EQ_COBERTURAS_IND_2
+	IS
+	SELECT distinct RAMO, POLIZA
+	FROM t$_EQ_COBERTURAS_IND
+	WHERE Ramo NOT IN (0, 32, 34, 35, 36, 38);
+
+	CURSOR BQ_EQ (P_RAMO HJPF01.RAMO%TYPE,P_POLIZA HJPF01.POLIZA%TYPE)
+	IS
+	SELECT RAMO, POLIZA
+	FROM EQ_COBERTURAS_IND
+	WHERE RAMO = P_RAMO 
+	AND POLIZA = P_POLIZA;
+
+	sq_poldef_conver	NUMBER (14);
+	DUMMY				NUMBER := 0;
+BEGIN
+	FOR C IN CUR_EQ_COBERTURAS_IND_2
+	LOOP
+		sq_poldef_conver := pm.proxima_secuencia ('sq_poldef');
+
+		FOR I IN BQ_EQ (C.RAMO, C.POLIZA)
+		LOOP
+			UPDATE eq_coberturas_ind
+			SET IdePol = sq_poldef_conver
+			WHERE Ramo = I.Ramo AND Poliza = I.Poliza;
+
+			IF DUMMY = 300 THEN
+				COMMIT;
+				DUMMY := 0;
+			END IF;
+			DUMMY := DUMMY + 1;
+		END LOOP;
+		COMMIT;      
+	END LOOP;
+END;
