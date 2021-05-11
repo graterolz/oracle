@@ -1,0 +1,7 @@
+SELECT 
+	RESOURCE_NAME,
+	CURRENT_UTILIZATION,
+	MAX_UTILIZATION,
+	LIMIT_VALUE 
+FROM v$resource_limit
+WHERE RESOURCE_NAME in ('sessions','processes');
