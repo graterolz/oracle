@@ -1,0 +1,29 @@
+=== UNIX ===
+# pwd	-- Directorio actual
+# mkdir	-- Crea directorio
+# cd 	-- Ir a directorio
+# ls	-- Lista de archivos
+# date 	-- Fecha del Sistema
+# psrinfo	-- Ver procesadores
+# history 	-- Historial de consola
+# sqlplus / as sysdba		-- SQL*Plus
+# export ORACLE_SID=bankbu 	-- Exporta variable de entorno
+
+=== RAC ===
+# srvctl status database -d bankbu = Status nodos
+# srvctl start Instance -d BANKBU -i BANKBU2 = Iniciar nodo 2.
+# srvctl stop Instance -d BANKBU -i BANKBU2 = Detener nodo 2.
+
+===== System tables =====
+# SELECT * FROM all_directories	-- Informacion de directorios
+# SELECT * FROM v$database;		-- Informacion BD
+# SELECT * FROM v$encryption_wallet; 	-- Informacion Wallet
+# SELECT * FROM ALL_SCHEDULER_JOBS;		-- Informacion de Jobs
+
+===== Commands =====
+# sqlplus / as sysdba;	-- SQL*Plus
+# shutdown immediate;	-- Reinicio BD immediato
+# shutdown abort;		-- Reinicio	BD abortado
+
+===== SQL =====
+# ALTER SESSION SET current_schema = SCHEMA_NAME;	-- Altera sesion
