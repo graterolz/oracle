@@ -1,0 +1,4 @@
+-- TAMAÑO OCUPADO POR UNA COLUMNA DE UNA TABLA
+SELECT
+  SUM(vsize('Nombre_Columna'))/1024/1024 MB 
+FROM Nombre_Tabla;

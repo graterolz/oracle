@@ -1,11 +1,11 @@
 === UNIX ===
-# pwd	-- Directorio actual
-# mkdir	-- Crea directorio
-# cd 	-- Ir a directorio
-# ls	-- Lista de archivos
-# date 	-- Fecha del Sistema
-# psrinfo	-- Ver procesadores
-# history 	-- Historial de consola
+# pwd						-- Directorio actual
+# mkdir						-- Crea directorio
+# cd 						-- Ir a directorio
+# ls						-- Lista de archivos
+# date 						-- Fecha del Sistema
+# psrinfo					-- Ver procesadores
+# history 					-- Historial de consola
 # sqlplus / as sysdba		-- SQL*Plus
 # export ORACLE_SID=bankbu 	-- Exporta variable de entorno
 
@@ -15,8 +15,8 @@
 # srvctl stop Instance -d BANKBU -i BANKBU2 = Detener nodo 2.
 
 ===== System tables =====
-# SELECT * FROM all_directories	-- Informacion de directorios
-# SELECT * FROM v$database;		-- Informacion BD
+# SELECT * FROM all_directories			-- Informacion de directorios
+# SELECT * FROM v$database;				-- Informacion BD
 # SELECT * FROM v$encryption_wallet; 	-- Informacion Wallet
 # SELECT * FROM ALL_SCHEDULER_JOBS;		-- Informacion de Jobs
 

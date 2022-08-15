@@ -1,0 +1,7 @@
+-- Listener Control Utility
+
+lsnrctl status
+
+lsnrctl stop
+
+lsnrctl start

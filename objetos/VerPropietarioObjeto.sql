@@ -1,0 +1,6 @@
+--PROPIETARIOS DE OBJETOS Y NÚMERO DE OBJETOS POR PROPIETARIO
+SELECT owner,
+       COUNT(owner) Numero 
+FROM dba_objects 
+GROUP BY owner 
+ORDER BY Numero DESC;
