@@ -1,0 +1,1 @@
+oradim -delete -sid XE

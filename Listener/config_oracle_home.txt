@@ -1,0 +1,3 @@
+C:\oracle\ora81\network\log\listener.log
+set ORACLE_HOME=C:\oracle\ora81;
+set TNS_ADMIN=C:\oracle\ora81\network\admin;

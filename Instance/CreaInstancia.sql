@@ -1,0 +1,1 @@
+oradim -new -sid OCON -startmode auto -pfile C:\oraclexe\app\oracle\product\10.2.0\server\database\initOCON.ora

@@ -5,3 +5,5 @@ lsnrctl status
 lsnrctl stop
 
 lsnrctl start
+
+lsnrctl reload

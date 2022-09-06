@@ -1,0 +1,3 @@
+ORACLE_SID = ORON
+ORACLE_HOME = C:\oraclexe\app\oracle\product\10.2.0\server
+ORACLE_HOME_DB = C:\oraclexe\app\oracle\product\10.2.0\server\database10
