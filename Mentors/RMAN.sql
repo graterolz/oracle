@@ -1,0 +1,130 @@
+-- Comando List
+RMAN> LIST BACKUP;
+RMAN> LIST BACKUP OF DATABASE;
+RMAN> LIST BACKUP OF DATABASE BY BACKUP;
+RMAN> LIST BACKUP RECOVERABLE;
+RMAN> LIST BACKUP SUMMARY;
+RMAN> LIST INCARNATION;
+RMAN> LIST BACKUP BY FILE;
+RMAN> LIST COPY OF DATABASE ARCHIVELOG ALL;
+RMAN> LIST COPY OF DATAFILE 1, 2, 3;
+RMAN> LIST BACKUP OF DATAFILE 11 SUMMARY;
+RMAN> LIST BACKUP OF ARCHIVELOG FROM SEQUENCE 1437;
+RMAN> LIST CONTROLFILECOPY "/tmp/cntrlfile.copy";
+RMAN> LIST BACKUPSET OF DATAFILE 1;
+RMAN> LIST backup tag '04_12_09_F';
+RMAN> LIST BACKUPPIECE ' ';
+RMAN> LIST BACKUP OF ARCHIVELOG ;
+RMAN> list backup of database completed between "to_date('06/17/2010','mm/dd/yyyy')" and "to_date('06/19/2010','mm/dd/yyyy')";
+RMAN> LIST backup of database completed after "to_date('06/20/2010','mm/dd/yyyy')";
+
+
+-- Generar un log en  RMAN output to a LOG:
+
+-- The following example appends the output from an RMAN session to a text file at /tmp/msglog.log
+% rman TARGET / LOG /tmp/msglog.log APPEND
+
+--
+--
+--
+rman target lzambrano/Pegaso26@bankbu catalog rman/RespaldoRMAN01@rcatbod 
+
+run {
+	allocate channel 'dev_0' type 'sbt_tape'
+	parms 'SBT_LIBRARY=/opt/omni/lib/libob2oracle8_64bit.so,ENV=(OB2BARTYPE=Oracle8,OB2APPNAME=BANKBU,OB2BARLIST=BD-BANK-SCAN_Bankbu_BD_FULL_ORA)';
+	backup incremental level 0 
+	format 'BD-BANK-SCAN_Bankbu_BD_FULL_ORA<BANKBU_%s:%t:%p>.dbf'
+	database;
+	sql 'alter system archive log current';
+	backup
+	format 'BD-BANK-SCAN_Bankbu_BD_FULL_ORA<BANKBU_%s:%t:%p>.dbf'
+	archivelog all;
+	backup 
+	format 'BD-BANK-SCAN_Bankbu_BD_FULL_ORA<BANKBU_%s:%t:%p>.dbf'
+	recovery area;
+	backup 
+	format 'BD-BANK-SCAN_Bankbu_BD_FULL_ORA<BANKBU_%s:%t:%p>.dbf'
+	current controlfile;
+	DELETE noprompt ARCHIVELOG UNTIL TIME 'sysdate -2';
+	release channel 'dev_0';
+}
+
+--
+--
+--
+-- Comando Export
+expdp lzambrano/Pegaso26@BANKBU1 tables=OPENCARD.KE_PRODUCTS_DEFINITION directory=BACKUP dumpfile=expdp_data_Tabla_KE_PRODUCTS_DEFINITION_20150601.dmp logfile=expdp_data_Tabla_KE_PRODUCTS_DEFINITION_20150601.log
+
+expdp lzambrano/Pegaso26@BANKBU1 schemas=OPENCARD directory=BACKUP dumpfile=expdp_data_schema_OPENCARD_20151022.dmp logfile=expdp_data_schema_OPENCARD_20151022.log
+
+expdp opencard/opencard directory=data_pump_dir dumpfile=banckbuLab_backup.dmp logfile=banckbuLab_backup.log full=y
+
+expdp rman/RespaldoRMAN01@rcatbod directory=BACKUP_BD SCHEMAS=RMAN dumpfile=rman_20151022.dmp logfile=rman_20151022.log
+
+impdp bkrman/Bod12345@rcatbod directory=BACKUP_BD SCHEMAS=RMAN remap_schema=RMAN:BKRMAN dumpfile=rman_20151024.dmp logfile=rman_20151024.log
+
+impdp lzambrano@Bankbu directory=BACKUP dumpfile=expdp_data_Tabla_KE_USERS_20151216.dmp CONTENT=data_ONLY remap_schema=OPENCARD:OPENCARD
+
+--
+--
+--
+
+-- Script de restauración de producción
+
+RUN
+{
+	allocate channel 'dev_0' type 'sbt_tape' parms 'SBT_LIBRARY=/opt/omni/lib/libob2oracle8_64bit.so,ENV=(OB2BARTYPE=Oracle8,OB2APPNAME=BANKBU,OB2BARLIST=BD-BANK-SCAN_Bankbu_BD_FULL_ORA)';
+	allocate channel 'dev_1' type 'sbt_tape' parms 'SBT_LIBRARY=/opt/omni/lib/libob2oracle8_64bit.so,ENV=(OB2BARTYPE=Oracle8,OB2APPNAME=BANKBU,OB2BARLIST=BD-BANK-SCAN_Bankbu_BD_FULL_ORA)';
+	allocate channel 'dev_2' type 'sbt_tape' parms 'SBT_LIBRARY=/opt/omni/lib/libob2oracle8_64bit.so,ENV=(OB2BARTYPE=Oracle8,OB2APPNAME=BANKBU,OB2BARLIST=BD-BANK-SCAN_Bankbu_BD_FULL_ORA)';
+	SET NEWNAME FOR DATAFILE 1 TO '+DATA01/BANKBUP/DATAFILE/system.258.831554471';
+	SET NEWNAME FOR DATAFILE 2 TO '+DATA01/BANKBUP/DATAFILE/sysaux.260.831554473';
+	SET NEWNAME FOR DATAFILE 3 TO '+DATA01/BANKBUP/DATAFILE/undotbs1.257.831554467';
+	SET NEWNAME FOR DATAFILE 4 TO '+DATA01/BANKBUP/DATAFILE/users.261.841502065';
+	SET NEWNAME FOR DATAFILE 5 TO '+DATA01/BANKBUP/DATAFILE/opc_dat00.256.831554457';
+	SET NEWNAME FOR DATAFILE 6 TO '+DATA01/BANKBUP/DATAFILE/opc_ind00.259.831554473';
+	SET NEWNAME FOR DATAFILE 7 TO '+DATA01/BANKBUP/DATAFILE/ke_clients';
+	SET NEWNAME FOR DATAFILE 8 TO '+DATA01/BANKBUP/DATAFILE/undotbs2.263.831554911';
+	SET NEWNAME FOR DATAFILE 9 TO '+DATA01/BANKBUP/DATAFILE/ke_clients_ind';
+	SET NEWNAME FOR DATAFILE 10 TO '+DATA01/BANKBUP/DATAFILE/ke_cards';
+	SET NEWNAME FOR DATAFILE 11 TO '+DATA01/BANKBUP/DATAFILE/ke_cards_ind';
+	SET NEWNAME FOR DATAFILE 12 TO '+DATA01/BANKBUP/DATAFILE/ke_addresses';
+	SET NEWNAME FOR DATAFILE 13 TO '+DATA01/BANKBUP/DATAFILE/ke_caddresses_ind';
+	SET NEWNAME FOR DATAFILE 14 TO '+DATA01/BANKBUP/DATAFILE/co_authorizations';
+	SET NEWNAME FOR DATAFILE 15 TO '+DATA01/BANKBUP/DATAFILE/co_authorizations_ind';
+	SET NEWNAME FOR DATAFILE 16 TO '+DATA01/BANKBUP/DATAFILE/co_authorizations_logs';
+	SET NEWNAME FOR DATAFILE 17 TO '+DATA01/BANKBUP/DATAFILE/co_authorizations_logs_ind';
+	SET NEWNAME FOR DATAFILE 18 TO '+DATA01/BANKBUP/DATAFILE/co_authorization_movements';
+	SET NEWNAME FOR DATAFILE 19 TO '+DATA01/BANKBUP/DATAFILE/co_authorizations_moves_ind';
+	SET NEWNAME FOR DATAFILE 20 TO '+DATA01/BANKBUP/DATAFILE/co_authorizations_statistics';
+	SET NEWNAME FOR DATAFILE 21 TO '+DATA01/BANKBUP/DATAFILE/ke_line_card_balances';
+	SET NEWNAME FOR DATAFILE 22 TO '+DATA01/BANKBUP/DATAFILE/ke_line_card_balances_ind';
+	SET NEWNAME FOR DATAFILE 23 TO '+DATA01/BANKBUP/DATAFILE/opc_dat_ke';
+	SET NEWNAME FOR DATAFILE 24 TO '+DATA01/BANKBUP/DATAFILE/opc_ind_ke';
+	SET NEWNAME FOR DATAFILE 25 TO '+DATA01/BANKBUP/DATAFILE/ke_cards_mig';
+	SET NEWNAME FOR DATAFILE 26 TO '+DATA01/BANKBUP/DATAFILE/opc_dat00.287.870004789';
+	SET NEWNAME FOR DATAFILE 27 TO '+DATA01/BANKBUP/DATAFILE/opc_ind_ke_02';
+	SET NEWNAME FOR DATAFILE 28 TO '+DATA01/BANKBUP/DATAFILE/co_authorizations_logs_ind_02';
+	SET NEWNAME FOR DATAFILE 29 TO '+DATA01/BANKBUP/DATAFILE/co_authorizations_logs_02';
+	SET NEWNAME FOR DATAFILE 30 TO '+DATA01/BANKBUP/DATAFILE/undotbs1.301.875997341';
+	SET NEWNAME FOR DATAFILE 31 TO '+DATA01/BANKBUP/DATAFILE/undotbs1.295.878139175';
+	SET NEWNAME FOR DATAFILE 32 TO '+DATA01/BANKBUP/DATAFILE/undotbs2.299.878139215';
+	SET NEWNAME FOR DATAFILE 33 TO '+DATA01/BANKBUP/DATAFILE/undotbs2.298.878139235';
+	SET NEWNAME FOR DATAFILE 34 TO '+DATA01/BANKBUP/DATAFILE/opc_dat00.297.878205393';
+	SET NEWNAME FOR DATAFILE 35 TO '+DATA01/BANKBUP/DATAFILE/opc_dat_ke_2';
+	SET NEWNAME FOR DATAFILE 36 TO '+DATA01/BANKBUP/DATAFILE/opc_dat00_4';
+	SET NEWNAME FOR DATAFILE 37 TO '+DATA01/BANKBUP/DATAFILE/opc_dat0';
+	SET NEWNAME FOR DATAFILE 38 TO '+DATA01/BANKBUP/DATAFILE/opc_ind00.499.887462851';
+	SET NEWNAME FOR DATAFILE 39 TO '+DATA01/BANKBUP/DATAFILE/opc_dat00.602.891913083';
+	SET NEWNAME FOR DATAFILE 40 TO '+DATA01/BANKBUP/DATAFILE/opc_dat00_x.dbf';
+	SET NEWNAME FOR DATAFILE 41 TO '+DATA01/BANKBUP/DATAFILE/opc_dat00_01.dbf';
+	SET NEWNAME FOR DATAFILE 42 TO '+DATA01/BANKBUP/DATAFILE/opc_dat00_02.dbf';
+	SET NEWNAME FOR DATAFILE 43 TO '+DATA01/BANKBUP/DATAFILE/opc_dat00_03.dbf';
+	SET NEWNAME FOR DATAFILE 44 TO '+DATA01/BANKBUP/DATAFILE/opc_ind_ke_01.dbf';
+	set until time= "to_date('02/10/2015 00:05:00','dd/mm/yyyy hh24:mi:ss')";  
+	 RESTORE DATABASE;
+	SWITCH DATAFILE ALL;  # para actualizar el control file e indicarle las nuevas rutas
+	RECOVER DATABASE;
+	RELEASE CHANNEL 'dev_0';
+	RELEASE CHANNEL 'dev_1';
+	RELEASE CHANNEL 'dev_2';
+}

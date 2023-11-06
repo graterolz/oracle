@@ -5,7 +5,7 @@ CREATE OR REPLACE PROCEDURE EnviarCorreo (
 )
 IS
 	l_mailhost VARCHAR2(64):= '10.0.8.240';
-	l_from VARCHAR2(64):= 'ics@bod.com.ve';
+	l_from VARCHAR2(64):= 'ics@tucorreo.com';
 	delim VARCHAR2(1):= ';';
 	pos INTEGER;
 	l_to_aux varchar2(32765):= replace(l_to, ' ', '');

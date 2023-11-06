@@ -1,0 +1,1 @@
+alter system set encryption wallet open identified by "produBankbuAS01";

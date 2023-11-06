@@ -1,0 +1,20 @@
+-- Consulta de ejecución de procesos.
+
+SELECT PROCESS_DATE, GROUP_CODE || '-' || SEQUENCE PROCESO,  
+TO_CHAR(START_DATE_TIME, 'DD/MM/YY hh24:mi:ss') HORA_INICIO, 
+TO_CHAR(FINIHS_DATE_TIME, 'DD/MM/YY hh24:mi:ss') HORA_FINALIZACIÓN, ROUND((FINIHS_DATE_TIME - START_DATE_TIME)*24,2) Duración,
+LOGICAL_OBJECT, RUNNING_ASSOCIATED_NUMBER, RUNNING_NUMBER, STATUS, PROCESS_ERROR
+from opencard.OP_PROCESS_SCHEDULE
+WHERE PROCESS_DATE BETWEEN add_months(sysdate, -1) and sysdate
+order by PROCESS_DATE;
+
+
+-- Consulta de comparación de fecha por proceso
+
+SELECT LOGICAL_OBJECT, group_code,sequence,  
+TO_CHAR(START_DATE_TIME, 'DD/MM/YY hh24:mi:ss') HORA_INICIO, 
+TO_CHAR(FINIHS_DATE_TIME, 'DD/MM/YY hh24:mi:ss') HORA_FINALIZACIÓN, ROUND((FINIHS_DATE_TIME-START_DATE_TIME)*1440,2) Duración,
+PROCESS_DATE, RUNNING_NUMBER, STATUS, PROCESS_ERROR
+from opencard.OP_PROCESS_SCHEDULE
+WHERE start_date_time > '12-ene-2016' and group_code in (  290)
+order by group_code,sequence,START_DATE_TIME, process_date;
